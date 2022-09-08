@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User;
+use App\Http\Controllers\Authenticate;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,12 @@ use App\Http\Controllers\User;
 */
 
 
-Route::get('/login', [User::class,'login']);
+Route::get('/login', [Authenticate::class,'login'])->name('login');
+Route::get('/logout', [Authenticate::class,'logout'])->name('logout');
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('auth');
+Route::post('login_post', [Authenticate::class,'login_post'])->name('login_post');
+
+
+Route::get('/cdr', [User::class, 'login'])->name('cdr');
